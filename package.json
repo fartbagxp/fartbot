@@ -1,0 +1,28 @@
+{
+  "name": "fartbot",
+  "version": "1.0.0",
+  "description": "twitch bot",
+  "main": "index.js",
+  "dependencies": {
+    "tmi.js": "0.0.29"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fartbagxp/fartbot.git"
+  },
+  "keywords": [
+    "twitch",
+    "fart"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fartbagxp/fartbot/issues"
+  },
+  "homepage": "https://github.com/fartbagxp/fartbot#readme"
+}
