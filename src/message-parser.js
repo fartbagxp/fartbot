@@ -44,7 +44,7 @@ function parseBotMessage(message) {
   }
 }
 
-parser.updateCount = function(user, message) {
+parser.parseLiveResponse = function(user, message) {
 
   // We only care about broadcaster or mod messages
   if(!user.mod && !_.startsWith(user['badges-raw'], 'broadcaster')) {
@@ -59,6 +59,34 @@ parser.updateCount = function(user, message) {
     if(_.startsWith(message, '!')) {
       logger(user.username + '--', message);
     }
+  }
+};
+
+parser.parseUpdateCount = function(user, message) {
+
+  // We only care about broadcaster or mod messages
+  if(!user.mod && !_.startsWith(user['badges-raw'], 'broadcaster')) {
+    return;
+  }
+
+  try {
+    if(_.isNil(message) || _.isEmpty(message)) {
+      return;
+    }
+
+    const split = _.words(message);
+    if(_.size(split) !== 3) {
+      logger('Unable to parse update: ', message);
+      return;
+    }
+
+    const counter = split[1];
+    const points = parseInt(split[2]);
+
+    mtd.count[counter] = points;
+
+  } catch(e) {
+    logger('Failed to update count: ', message);
   }
 };
 

@@ -41,7 +41,7 @@ client.on("action", function (channel, userstate, message, self) {
       return;
     }
 
-    parser.updateCount(userstate, message);
+    parser.parseLiveResponse(userstate, message);
 });
 
 client.on('chat', function (channel, user, message, self) {
@@ -53,17 +53,27 @@ client.on('chat', function (channel, user, message, self) {
 
   // If it's a special command, listen to it, and reply
   if (message === '!!count') {
+
     let message = '';
     _.forEach(mtd.count, function(value, key) {
-      message += key + ':' + value;
+      message += key + ':' + value + ', ';
     });
+
+    message = _.trimEnd(message, ', ');
+    logger('Message = ', message);
 
     client.say(config.channel, message);
     return;
   }
 
+  // If it's a special command, listen to it, and reply
+  if (_.startsWith(message, '!!update')) {
+    parser.parseUpdateCount(user, message);
+    return;
+  }
+
   // Attempt to update the count with the message
-  parser.updateCount(user, message);
+  parser.parseLiveResponse(user, message);
 
   // console.info('Channel: ', channel);
   // console.info('User name: ', user.username);
